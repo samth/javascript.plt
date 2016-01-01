@@ -17,7 +17,7 @@ make me happy.
 
 The PJS library can be required via:
 
-@defmodule/this-package[pjs]
+@defmodule[javascript/pjs]
 
 @section[#:tag "pjs_grammar"]{Syntax}
 

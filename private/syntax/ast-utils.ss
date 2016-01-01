@@ -1,7 +1,7 @@
 #lang scheme/base
 
-(require (planet cobbe/contract-utils:1/contract-utils)
-         scheme/contract
+(require scheme/contract
+         unstable/contract
          "ast-core.ss"
          "../../private/config.ss"
          "token.ss")
@@ -233,10 +233,10 @@
 (provide/contract
  [has-location? predicate/c]
  [ast-location (has-location? . -> . source-location/c)]
- [ast-source (has-location? . -> . (optional/c any/c))]
- [ast-start (has-location? . -> . (optional/c posn?))]
- [ast-end (has-location? . -> . (optional/c posn?))]
- [@ ((optional/c has-location?) (optional/c has-location?) . -> . source-location/c)]
+ [ast-source (has-location? . -> . (maybe/c any/c))]
+ [ast-start (has-location? . -> . (maybe/c posn?))]
+ [ast-end (has-location? . -> . (maybe/c posn?))]
+ [@ ((maybe/c has-location?) (maybe/c has-location?) . -> . source-location/c)]
  [with-location (source-location/c Term? . -> . Term?)])
 
 (provide/contract
@@ -272,7 +272,7 @@
  [prefix-operators (listof symbol?)]
  [infix-operators (listof symbol?)]
  [assignment-operators (listof symbol?)]
- [assignment-operator->infix-operator (assignment-operator? . -> . (optional/c infix-operator?))]
+ [assignment-operator->infix-operator (assignment-operator? . -> . (maybe/c infix-operator?))]
  [postfix-operator? predicate/c]
  [prefix-operator? predicate/c]
  [infix-operator? predicate/c]

@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (planet dherman/widgets:2/text)
-         scheme/gui/base
+(require scheme/gui/base
          framework
          scheme/class)
 
@@ -32,7 +31,7 @@
     (define/public (get-debug-port) output-port)
 
     (define contents (instantiate editor-canvas% ((get-area-container))))
-    (define editor (instantiate read-only-text% ()))
+    (define editor (instantiate text% ()))
 
     (define/public (kill)
       (show #f)

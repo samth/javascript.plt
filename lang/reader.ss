@@ -1,5 +1,5 @@
 (module reader syntax/module-reader
-  #:language `(planet "module.ss" ("dherman" "javascript.plt" ,major ,minor) "lang")
+  #:language 'javascript/lang/module
   #:read (lambda ([in (current-input-port)])
            (let ([ast (with-syntax-errors (lambda ()
                                             (parse-program-unit in)))])

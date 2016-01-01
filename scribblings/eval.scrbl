@@ -15,7 +15,7 @@
 This library provides facilities for evaluating JavaScript. It can be
 required via:
 
-@defmodule/this-package[eval]
+@defmodule[javascript/eval]
 
 @defproc[(eval-script (src (or/c input-source? syntax?)) (ns namespace? (make-js-namespace))) any]{
 Evaluates a JavaScript script from source @scheme[src] in namespace @scheme[ns].}

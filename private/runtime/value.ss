@@ -1,7 +1,9 @@
 #lang scheme/base
 
-(require (planet "evector.scm" ("soegaard" "evector.plt" 1))
+(require "../evector.rkt"
          scheme/string
+         racket/math
+         racket/promise
          (except-in scheme/list empty)
          "../syntax/ast-core.ss"
          "../syntax/ast-utils.ss"
@@ -123,10 +125,6 @@
 (define (NaN? x)
   (or (eqv? x +nan.0)
       (eqv? x -nan.0)))
-
-(define (infinite? x)
-  (or (eqv? x +inf.0)
-      (eqv? x -inf.0)))
 
 (define (has-attribute? p a)
   (and (attributed? p)
@@ -803,24 +801,25 @@
 ;; TODO: join nested function objects
 
 (define (build-function arity proc)
-  (letrec ([f (make-function
-               proto:Function
-               (object-table
-                ;; 13.2, 15.3.5.1
-                [length arity (DONT-DELETE? READ-ONLY? DONT-ENUM?)]
-                ;; 13.2, 15.3.5.2
-                [prototype (build-object (object-table [constructor f (DONT-ENUM?)]))
-                           (DONT-DELETE?)])
-               ;; 13.2.1
-               proc
-               ;; 13.2.2
-               (lambda args
-                 (let* ([proto (object-get f 'prototype (lambda () proto:Object))]
-                        [new-object (build-object0 '() proto)])
-                   (parameterize ([current-this new-object])
-                     (apply proc args))
-                   new-object)))])
-    f))
+  (define f #f)
+  (set! f (make-function
+           proto:Function
+           (object-table
+            ;; 13.2, 15.3.5.1
+            [length arity (DONT-DELETE? READ-ONLY? DONT-ENUM?)]
+            ;; 13.2, 15.3.5.2
+            [prototype (build-object (object-table [constructor f (DONT-ENUM?)]))
+                             (DONT-DELETE?)])
+           ;; 13.2.1
+           proc
+           ;; 13.2.2
+           (lambda args
+             (let* ([proto (object-get f 'prototype (lambda () proto:Object))]
+                    [new-object (build-object0 '() proto)])
+               (parameterize ([current-this new-object])
+                 (apply proc args))
+               new-object))))
+  f)
 
 (define (list->array ls)
   (let* ([len (length ls)]

@@ -1,8 +1,8 @@
 #lang scheme/base
 
-(require (planet cobbe/contract-utils:1/contract-utils)
-         (planet dherman/parameter:1:3)
-         scheme/contract
+(require scheme/contract
+         unstable/contract
+         parameter
          "private/config.ss")
 
 (provide/contract [allow-anonymous-function-source-elements? (parameter/c boolean?)]
@@ -10,7 +10,7 @@
                   [enable-extended-catch-statements? (parameter/c boolean?)]
                   [allow-nested-function-declarations? (parameter/c boolean?)]
                   [proper-tail-recursion? (parameter/c boolean?)]
-                  [stack-limit (parameter/c (optional/c natural-number/c))]
+                  [stack-limit (parameter/c (maybe/c natural-number/c))]
                   [allow-eval-aliasing? (parameter/c boolean?)]
                   [code-representation (parameter/c (one-of/c 'standard 'sexp))]
                   [lexical-keywords (parameter/c (listof symbol?))]

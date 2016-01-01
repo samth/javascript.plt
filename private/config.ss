@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (planet dherman/parameter:1:3)
-         (only-in srfi/1/list lset-adjoin))
+(require (only-in srfi/1/list lset-adjoin) parameter)
 
 (provide (except-out (all-defined-out) default-keywords keyword-guard add-keyword remove-keyword (struct-out config)))
 

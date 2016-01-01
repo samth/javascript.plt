@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (only-in macro-debugger/tool language/macro-stepper<%>)
-         scheme/gui/base
+(require scheme/gui/base
          framework
          scheme/runtime-path
          drscheme/tool
@@ -47,7 +46,7 @@
                     (javascript-lang-mixin 'ecmascript))))))
 
   (define macro-stepper-mixin
-    (mixin (language/macro-stepper<%>) ()
+    (mixin () ()
       (super-make-object)
       (define/override (enable-macro-stepper?) #t)))
   

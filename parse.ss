@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (planet cobbe/contract-utils:1/contract-utils)
-         scheme/contract
+(require scheme/contract
          scheme/class
          "private/syntax/ast-core.ss"
          "private/syntax/ast-utils.ss"

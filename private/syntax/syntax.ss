@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (prefix-in set: (planet dherman/set:3:0/seteq))
-         (planet cobbe/contract-utils:1/contract-utils)
+(require (prefix-in set: data/seteq)
          scheme/list
          scheme/contract
          scheme/match
@@ -71,7 +70,7 @@
 ;; ===========================================================================
 
 (define (union-map f stxs)
-  (set:unions (map f (syntax-list stxs))))
+  (set:seteq-unions (map f (syntax-list stxs))))
 
 (define (term-vars* terms env)
   (union-map (lambda (term)
@@ -91,22 +90,22 @@
 (define (term-init-vars init env)
   (match init
     [(struct VariableInitializer (_ (struct Identifier (_ id)) init))
-     (set:list->set (list id))]))
+     (set:list->seteq (list id))]))
 
 (define (syntax-init-vars stx env)
   (syntax-case stx ()
     [id
      (identifier? #'id)
-     (set:list->set (list (syntax->datum #'id)))]
+     (set:list->seteq (list (syntax->datum #'id)))]
     [(id . _)
      (identifier? #'id)
-     (set:list->set (list (syntax->datum #'id)))]
-    [_ set:empty]))
+     (set:list->seteq (list (syntax->datum #'id)))]
+    [_ set:empty-seteq]))
 
 (define (term-vars term env)
   (match term
     [(struct FunctionDeclaration (_ (struct Identifier (_ name)) args body))
-     (set:list->set (list name))]
+     (set:list->seteq (list name))]
     [(struct VariableDeclaration (_ inits))
      (union-map (lambda (init)
                   (term-init-vars init env))
@@ -120,14 +119,14 @@
     [(struct WhileStatement (loc test body))
      (term-vars body env)]
     [(struct ForStatement (_ (struct VariableDeclaration (_ inits)) test incr body))
-     (set:union (union-map (lambda (init)
+     (set:seteq-union (union-map (lambda (init)
                              (term-init-vars init env))
                            inits)
                 (term-vars body env))]
     [(struct ForStatement (_ _ test incr body))
      (term-vars body env)]
     [(struct ForInStatement (_ (struct VariableDeclaration (_ (list init))) container body))
-     (set:union (term-init-vars init env)
+     (set:seteq-union (term-init-vars init env)
                 (term-vars body env))]
     [(struct ForInStatement (_ _ container body))
      (term-vars body env)]
@@ -140,20 +139,20 @@
     [(struct LabelledStatement (_ (struct Identifier (_ l)) stmt))
      (term-vars stmt env)]
     [(struct TryStatement (_ body catch finally))
-     (set:union (if finally (term-vars finally env) set:empty)
+     (set:seteq-union (if finally (term-vars finally env) set:empty-seteq)
                 (union-map (lambda (clause)
                              (term-clause-vars clause env))
                            catch)
                 (term-vars body env))]
-    [_ set:empty]))
+    [_ set:empty-seteq]))
 
 (define (syntax-vars stx env)
   (syntax-case* stx (function var block if do while for in with switch label try finally) (keyword=? env)
     [(function id (arg ...) body ...)
      (identifier? #'id)
-     (set:list->set (list (syntax->datum #'id)))]
+     (set:list->seteq (list (syntax->datum #'id)))]
     [(function . _)
-     set:empty]
+     set:empty-seteq]
     [(var decls ...)
      (union-map (lambda (decl)
                   (syntax-init-vars decl env))
@@ -169,12 +168,12 @@
     [(while test body)
      (syntax-vars #'body env)]
     [(for (var x) in container body)
-     (set:union (syntax-init-vars #'x env)
+     (set:seteq-union (syntax-init-vars #'x env)
                 (syntax-vars #'body env))]
     [(for lhs in container body)
      (syntax-vars #'body env)]
     [(for (var inits ...) test incr body)
-     (set:union (union-map (lambda (init)
+     (set:seteq-union (union-map (lambda (init)
                              (syntax-init-vars init env))
                            #'(inits ...))
                 (syntax-vars #'body env))]
@@ -187,13 +186,13 @@
     [(label id stmt)
      (syntax-vars #'stmt env)]
     [(try body catches ... (finally clause))
-     (set:union (syntax-vars #'body env)
+     (set:seteq-union (syntax-vars #'body env)
                 (syntax-clause-vars* #'(catches ...) env)
                 (syntax-vars #'clause env))]
     [(try body catches ...)
-     (set:union (syntax-vars #'body env)
+     (set:seteq-union (syntax-vars #'body env)
                 (syntax-vars* #'(catches ...) env))]
-    [_ set:empty]))
+    [_ set:empty-seteq]))
 
 (define (syntax-clause-vars stx env)
   (syntax-case* stx (case catch) (keyword=? env)
@@ -309,7 +308,7 @@
     [(function name (args ...) body ...)
      (identifier? #'name)
      (let ([env* (extend-env (append (map syntax->datum (syntax->list #'(name args ...)))
-                                     (set:set->list (syntax-vars* #'(body ...) env)))
+                                     (set:seteq->list (syntax-vars* #'(body ...) env)))
                              env)])
        (make-FunctionExpression stx
                                 (->Identifier #'name)
@@ -318,7 +317,7 @@
                                   (->SourceElements #'(body ...) env*))))]
     [(function (args ...) body ...)
      (let ([env* (extend-env (append (map syntax->datum (syntax->list #'(args ...)))
-                                     (set:set->list (syntax-vars* #'(body ...) env)))
+                                     (set:seteq->list (syntax-vars* #'(body ...) env)))
                              env)])
        (make-FunctionExpression stx
                                 #f
@@ -473,7 +472,7 @@
                   (not (allow-nested-function-declarations?)))
          (raise-syntax-error 'syntax->statement "illegally nested function definition" stx))
        (let ([env* (extend-env (append (map syntax->datum (syntax->list #'(name args ...)))
-                                       (set:set->list (syntax-vars* #'(body ...) env)))
+                                       (set:seteq->list (syntax-vars* #'(body ...) env)))
                                env)])
          (make-FunctionDeclaration stx
                                    (->Identifier #'name)
@@ -738,21 +737,21 @@
   (syntax->expression (datum->syntax #f sexp)))
 
 (define (syntax->statement stx)
-  (let ([env (extend-env (set:set->list (syntax-vars stx initial-env)) initial-env)])
+  (let ([env (extend-env (set:seteq->list (syntax-vars stx initial-env)) initial-env)])
     (->Statement stx env)))
 
 (define (sexp->statement sexp)
   (syntax->statement (datum->syntax #f sexp)))
 
 (define (syntax->source-element stx)
-  (let ([env (extend-env (set:set->list (syntax-vars stx initial-env)) initial-env)])
+  (let ([env (extend-env (set:seteq->list (syntax-vars stx initial-env)) initial-env)])
     (->SourceElement stx env)))
 
 (define (sexp->source-element sexp)
   (syntax->source-element (datum->syntax #f sexp)))
 
 (define (syntax->program-unit stx)
-  (let ([env (extend-env (set:set->list (syntax-vars* stx initial-env)) initial-env)])
+  (let ([env (extend-env (set:seteq->list (syntax-vars* stx initial-env)) initial-env)])
     (syntax-case stx ()
       [(stmts ...)
        (->SourceElements #'(stmts ...) env)])))
@@ -1087,21 +1086,21 @@
   (syntax->datum (expression->syntax expr)))
 
 (define (statement->syntax stmt)
-  (let ([env (extend-env (set:set->list (term-vars stmt initial-env)) initial-env)])
+  (let ([env (extend-env (set:seteq->list (term-vars stmt initial-env)) initial-env)])
     (Statement-> stmt env)))
 
 (define (statement->sexp stmt)
   (syntax->datum (statement->syntax stmt)))
 
 (define (source-element->syntax elt)
-  (let ([env (extend-env (set:set->list (term-vars elt initial-env)) initial-env)])
+  (let ([env (extend-env (set:seteq->list (term-vars elt initial-env)) initial-env)])
     (SourceElement-> elt env)))
 
 (define (source-element->sexp elt)
   (syntax->datum (source-element->syntax elt)))
 
 (define (program-unit->syntax pgm)
-  (let ([env (extend-env (set:set->list (term-vars* pgm initial-env)) initial-env)])
+  (let ([env (extend-env (set:seteq->list (term-vars* pgm initial-env)) initial-env)])
     (SourceElements-> pgm env)))
 
 (define (program-unit->sexp pgm)

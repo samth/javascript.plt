@@ -1,7 +1,6 @@
 #lang scheme
 
-(require (planet schematics/schemeunit:3)
-         ;(planet "io.ss" ("dherman" "io.plt" 1 9))
+(require rackunit
          scheme/string
          (only-in srfi/13/string string-trim-both)
          "../../runtime.ss"

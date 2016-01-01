@@ -16,7 +16,7 @@
 This library provides facilities for lexing and parsing JavaScript source. It can be
 required via:
 
-@defmodule/this-package[parse]
+@defmodule[javascript/parse]
 
 @section[#:tag "input"]{Input Sources}
 

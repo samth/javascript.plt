@@ -13,7 +13,7 @@
 
 This library implements a JavaScript-to-Scheme compiler. It be can required via:
 
-@defmodule/this-package[compile]
+@defmodule[javascript/compile]
 
 @defproc[(compile-script (elts (listof SourceElement?))) syntax?]{
 Compiles a JavaScript script to Scheme.}

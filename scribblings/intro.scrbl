@@ -17,7 +17,7 @@ better known as JavaScript.
 
 The easiest way to get started using JavaScript for PLT Scheme is with the main module:
 
-@defmodule/this-package[]
+@defmodule[javascript]
 
 This module provides everything in the entire package. Subsequent sections of this
 manual describe the functionality of the individual libraries included, which can also be
@@ -56,7 +56,7 @@ the REPL.
 As of version 0.17 (released as PLaneT version 8:0), JavaScript is also available as
 a module language. This can be used by beginning a JavaScript source file with the line:
 
-@lang/this-package[]
+@defmodulelang[javascript]
 
 You can omit the PLaneT version numbers if you prefer. Programs without the version number
 do not need to be updated when this PLaneT package is upgraded. However, it is then the

@@ -1,6 +1,6 @@
 #lang scheme/base
 
-(require (planet schematics/schemeunit:3)
+(require rackunit
          (planet dherman/pprint:4)
          "../../parse.ss"
          "../syntax/ast-core.ss"

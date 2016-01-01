@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (planet "evector.scm" ("soegaard" "evector.plt" 1))
-         (except-in srfi/1/list any)
+(require (except-in srfi/1/list any)
          (only-in scheme/list flatten)
          scheme/string
          scheme/match
@@ -22,7 +21,6 @@
 (require (for-syntax scheme/require-transform)
          (for-syntax scheme/base))
 (require (for-template scheme/base)
-         (for-template (planet "evector.scm" ("soegaard" "evector.plt" 1)))
          (for-template "../runtime/runtime.ss")
          (for-template "../syntax/parse.ss"))
 

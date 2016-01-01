@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (planet cobbe/contract-utils:1/contract-utils)
-         (planet dherman/pprint:4)
+(require (planet dherman/pprint:4)
          scheme/contract
          scheme/match
          "private/syntax/ast-core.ss"

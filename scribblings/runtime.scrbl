@@ -12,7 +12,7 @@
 
 This library implements the JavaScript runtime system. It can be required via:
 
-@defmodule/this-package[runtime]
+@defmodule[javascript/runtime]
 
 @section[#:tag "namespaces"]{Namespaces}
 

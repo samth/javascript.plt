@@ -13,7 +13,7 @@
 This library provides configuration parameters for the other libraries. It be can
 required via:
 
-@defmodule/this-package[config]
+@defmodule[javascript/config]
 
 @defthing[allow-anonymous-function-source-elements? (parameter/c boolean?)]{Allow anonymous function expressions to appear in source-element contexts (non-standard)?}
 @defthing[infer-do-while-semicolon? (parameter/c boolean?)]{Allow @tt{do..while} statements to omit the final semicolon (non-standard)?}

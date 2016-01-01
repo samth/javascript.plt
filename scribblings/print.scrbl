@@ -14,7 +14,7 @@
 This library provides facilities for pretty-printing JavaScript source. It can be
 required via:
 
-@defmodule/this-package[print]
+@defmodule[javascript/print]
 
 This library depends on the @tt{pprint} PLaneT package, which can be required via:
 
