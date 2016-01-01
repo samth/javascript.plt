@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (planet "evector.scm" ("soegaard" "evector.plt" 1))
-         srfi/13/string
+(require srfi/13/string
          (except-in scheme/list empty)
          scheme/match
          scheme/math

@@ -1,16 +1,11 @@
 #lang scheme/base
 
-(require ;(planet "evector.scm" ("soegaard" "evector.plt" 1))
-         ;scheme/list
-         scheme/match
+(require scheme/match
          scheme/promise
          "../syntax/ast-core.ss"
          "../syntax/ast-utils.ss"
-         ;"../runtime/runtime.ss"
-         ;"helpers.ss"
          "hoist.ss")
-(require (for-template scheme/base)
-         #;(for-template "../runtime/runtime.ss"))
+(require (for-template scheme/base))
 
 (provide (all-defined-out))
 

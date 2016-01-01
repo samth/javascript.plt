@@ -1,7 +1,6 @@
 #lang scheme/base
 
-(require (planet "evector.scm" ("soegaard" "evector.plt" 1))
-         (only-in scheme/gui/base message-box)
+(require (only-in scheme/gui/base message-box)
          srfi/13/string
          "exceptions.ss"
          "value.ss"

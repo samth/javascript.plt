@@ -1,7 +1,7 @@
 #lang scheme/base
 
-(require (planet schematics/schemeunit:3)
-         (planet dherman/test:2)
+(require rackunit
+         file/in-new-directory
          scheme/class
          "../syntax/lex.ss"
          "../syntax/parse.ss"

@@ -1,7 +1,7 @@
 #lang scheme/base
 
-(require (planet schematics/schemeunit:3)
-         (planet schematics/schemeunit:3/text-ui)
+(require rackunit
+         rackunit/text-ui
          "parse.ss"
          "pretty-print.ss"
          "eval.ss"

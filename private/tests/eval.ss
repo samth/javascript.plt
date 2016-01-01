@@ -1,6 +1,6 @@
 #lang scheme/base
 
-(require (planet schematics/schemeunit:3)
+(require rackunit
          "../../runtime.ss"
          "../../eval.ss"
          "../../config.ss"

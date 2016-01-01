@@ -1,6 +1,5 @@
 #lang scheme/base
 
-;(require (planet "evector.scm" ("soegaard" "evector.plt" 1)))
 (require (for-syntax scheme/base))
 (require "exceptions.ss")
 (provide (all-defined-out))
