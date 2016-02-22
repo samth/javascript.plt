@@ -17,7 +17,8 @@
                "set"
                "srfi-lite-lib"
                "string-constants-lib"
-               "unstable-contract-lib"))
+               "unstable-contract-lib"
+               "pprint"))
 (define build-deps '("in-new-directory"
                      "parser-tools-doc"
                      "racket-doc"

@@ -25,7 +25,7 @@ required individually.
 
 @examples[#:eval the-eval
           (eval-script "print(40 + 2)")
-          (require (planet dherman/pprint))
+          (require pprint)
           (pretty-print
            (format-term
             (parse-source-element

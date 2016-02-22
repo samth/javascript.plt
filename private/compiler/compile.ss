@@ -22,6 +22,7 @@
          (for-syntax scheme/base))
 (require (for-template scheme/base)
          (for-template "../runtime/runtime.ss")
+         (for-template "../evector.ss")
          (for-template "../syntax/parse.ss"))
 
 (provide compile-module compile-script compile-global compile-interaction compile-function-expression with-syntax-errors)

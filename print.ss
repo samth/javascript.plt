@@ -1,6 +1,6 @@
 #lang scheme/base
 
-(require (planet dherman/pprint:4)
+(require pprint
          scheme/contract
          scheme/match
          "private/syntax/ast-core.ss"

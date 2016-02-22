@@ -1,7 +1,7 @@
 #lang scheme/base
 
 (require rackunit
-         (planet dherman/pprint:4)
+         pprint
          "../../parse.ss"
          "../syntax/ast-core.ss"
          "../../print.ss"

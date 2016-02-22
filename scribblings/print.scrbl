@@ -16,9 +16,9 @@ required via:
 
 @defmodule[javascript/print]
 
-This library depends on the @tt{pprint} PLaneT package, which can be required via:
+This library depends on the @tt{pprint} package, which can be required via:
 
-@schemeblock[(require (planet dherman/pprint:4))]
+@schemeblock[(require pprint)]
 
 See the documentation for @tt{pprint} for information on how to use it.
 
