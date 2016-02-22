@@ -31,7 +31,7 @@
       (dynamic-require runtime #f)
       (dynamic-require standard-library #f)
       (dynamic-require debug #f)
-      (dynamic-require lang #f)
+      (namespace-require 'javascript/lang/lang)
       (let ([path1 ((current-module-name-resolver) runtime #f #f)]
             [path2 ((current-module-name-resolver) standard-library #f #f)]
             [path3 ((current-module-name-resolver) debug #f #f)]
