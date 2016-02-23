@@ -223,7 +223,6 @@
           (dynamic-require runtime #f)
           (dynamic-require standard-library #f)
           (dynamic-require debug #f)
-          (dynamic-require lang #f)
           (let ([path1 ((current-module-name-resolver) module-forms #f #f)]
                 [path2 ((current-module-name-resolver) runtime #f #f)]
                 [path3 ((current-module-name-resolver) standard-library #f #f)]
@@ -262,7 +261,7 @@
                (namespace-attach-module n path2)
                (namespace-attach-module n path3)
                (namespace-attach-module n path4)
-               (namespace-attach-module n path5)
+               (namespace-require 'javascript/lang/lang)
                (reset-js-namespace! n)
                )))))
       (define/public (render-value value settings port)
