@@ -7,7 +7,7 @@
        (require (for-label "../main.ss"))
        (require "utils.ss")]
 
-@title[#:tag "top"]{@bold{JavaScript} for PLT Scheme}
+@title[#:tag "top"]{@bold{JavaScript} for Racket}
 
 by Dave Herman (@tt{dherman at ccs dot neu dot edu})
 
