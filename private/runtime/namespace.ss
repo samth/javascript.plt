@@ -32,10 +32,10 @@
       (dynamic-require standard-library #f)
       (dynamic-require debug #f)
       (namespace-require 'javascript/lang/lang)
-      (let ([path1 ((current-module-name-resolver) runtime #f #f)]
-            [path2 ((current-module-name-resolver) standard-library #f #f)]
-            [path3 ((current-module-name-resolver) debug #f #f)]
-            [path4 ((current-module-name-resolver) lang #f #f)])
+      (let ([path1 ((current-module-name-resolver) runtime #f #f #t)]
+            [path2 ((current-module-name-resolver) standard-library #f #f #t)]
+            [path3 ((current-module-name-resolver) debug #f #f #t)]
+            [path4 ((current-module-name-resolver) lang #f #f #t)])
         (namespace-attach-module ns path1)
         (namespace-attach-module ns path2)
         (namespace-attach-module ns path3)
