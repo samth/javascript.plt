@@ -230,11 +230,11 @@
           (dynamic-require standard-library #f)
           (dynamic-require debug #f)
           (dynamic-require lang #f)
-          (let ([path1 ((current-module-name-resolver) module-forms #f #f)]
-                [path2 ((current-module-name-resolver) runtime #f #f)]
-                [path3 ((current-module-name-resolver) standard-library #f #f)]
-                [path4 ((current-module-name-resolver) debug #f #f)]
-                [path5 ((current-module-name-resolver) lang #f #f)]
+          (let ([path1 ((current-module-name-resolver) module-forms #f #f #t)]
+                [path2 ((current-module-name-resolver) runtime #f #f #t)]
+                [path3 ((current-module-name-resolver) standard-library #f #f #t)]
+                [path4 ((current-module-name-resolver) debug #f #f #t)]
+                [path5 ((current-module-name-resolver) lang #f #f #t)]
                 [n (current-namespace)])
             (run-in-user-thread
              (lambda ()
