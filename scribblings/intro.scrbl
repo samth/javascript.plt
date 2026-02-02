@@ -56,7 +56,7 @@ the REPL.
 As of version 0.17 (released as PLaneT version 8:0), JavaScript is also available as
 a module language. This can be used by beginning a JavaScript source file with the line:
 
-@defmodulelang[javascript]
+@defmodulelang[javascript #:no-declare]
 
 You can omit the PLaneT version numbers if you prefer. Programs without the version number
 do not need to be updated when this PLaneT package is upgraded. However, it is then the
