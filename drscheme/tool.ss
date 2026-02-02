@@ -39,16 +39,10 @@
   (export drscheme:tool-exports^)
 
   (define (phase1) (void))
-  (define (phase2) 
+  (define (phase2)
     (drscheme:language-configuration:add-language
-     (make-object (macro-stepper-mixin
-                   ((drscheme:language:get-default-mixin)
-                    (javascript-lang-mixin 'ecmascript))))))
-
-  (define macro-stepper-mixin
-    (mixin () ()
-      (super-make-object)
-      (define/override (enable-macro-stepper?) #t)))
+     (make-object ((drscheme:language:get-default-mixin)
+                   (javascript-lang-mixin 'ecmascript)))))
   
   (define (javascript-lang-mixin level)
     (class* object% (drscheme:language:language<%>)
