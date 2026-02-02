@@ -46,6 +46,11 @@ structure subtypes of @scheme[object?]. All objects carry an internal, mutable @
 @;defstruct[object ([call (or/c function? #f)] [construct (or/c function? #f)] [proto (or/c object? #f)] [class string?] [properties (hash-of string? property?)])]{
 @;A JavaScript object.}
 
+@defproc[(object? (x any/c)) boolean?]{Determines whether @scheme[x] is a JavaScript object.}
+@defproc[(function? (x any/c)) boolean?]{Determines whether @scheme[x] is a JavaScript function (a callable object).}
+@defproc[(array? (x any/c)) boolean?]{Determines whether @scheme[x] is a JavaScript array object.}
+@defproc[(wrapper? (x any/c)) boolean?]{Determines whether @scheme[x] is a JavaScript wrapper object (an object wrapping a primitive value).}
+
 A @deftech{property} is one of:
 
 @itemize[
